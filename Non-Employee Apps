@@ -23,10 +23,10 @@ $allApps = $apps + $msApps
 
 #iterate over all the apps - and look for logins that werent from a portofportland or popaccess.online account
 foreach ($a in $allApps) {
-   $signins = Get-AzureADAuditSignInLogs -All $true -Filter "AppId eq '$($a.AppId)'" | Where-Object {$_.UserPrincipalName -notlike '*portofportland*' -AND $_.UserPrincipalName -notlike '*popaccess*' -AND $_.Status.ErrorCode -eq 0} | Group-Object -Property UserPrincipalName
+   $signins = Get-AzureADAuditSignInLogs -All $true -Filter "AppId eq '$($a.AppId)'" | Where-Object {$_.UserPrincipalName -like 'n-*' -AND $_.Status.ErrorCode -eq 0} | Group-Object -Property UserPrincipalName
    $numSignins = $signins | Measure-Object
    if ($numSignins.count -gt 0) {
-      Write-Host "$($a) --- $($signins.Count) external sign-ins found."
+      Write-Host "$($a) --- $($signins.Count) non-Employee sign-ins found."
       foreach ($s in $signins) {
          Write-Verbose "$($s.Name)"
       }
