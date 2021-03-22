@@ -1,1 +1,2 @@
-# Azure-QueriesThis is number of script that query Azure Ad for multiple purpose 
+# Azure-Queries
+This contains number of script that query Azure Ad for multiple purpose
